@@ -1,1 +1,1 @@
-# pig-game-js
+# Pig-Game based on Javascript
