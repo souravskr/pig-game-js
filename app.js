@@ -9,6 +9,20 @@ GAME RULES:
 
 */
 
+
+var scores, roundScore, activePlayer;
+
+scores = [0, 0];
+roundScore = 0;
+activePlayer = 0;
+document.querySelector('.dice').style.display = 'none';
+
+// making all scores 0
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
+
 document.querySelector('.btn-roll').addEventListener('click', function() {
     // Random Number for dice
     var dice = Math.floor(Math.random() * 6) + 1;
@@ -16,5 +30,17 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     // Display the random number with dice picture
     var diceDom = document.querySelector('.dice');
     diceDom.src = './dice-' + dice + '.png';
-    document.querySelector('#current-0').innerHTML = dice;
+    diceDom.style.display = 'block';
+    document.querySelector('#current-' + activePlayer).innerHTML = dice;
+
+    // Current score will be 0 if dice rolled to 1
+    if (dice !== 1) {
+        // add the score to current score
+        roundScore += dice;
+        document.getElementById('current-' + activePlayer).textContent = roundScore;
+    } else {
+        // Proceed to nex player
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    }
+
 })
