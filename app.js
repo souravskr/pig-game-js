@@ -15,13 +15,14 @@ var scores, roundScore, activePlayer;
 scores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
-document.querySelector('.dice').style.display = 'none';
+newGame();
+// document.querySelector('.dice').style.display = 'none';
 
-// making all scores 0
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+// // making all scores 0
+// document.getElementById('score-0').textContent = '0';
+// document.getElementById('score-1').textContent = '0';
+// document.getElementById('current-0').textContent = '0';
+// document.getElementById('current-1').textContent = '0';
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
     // Random Number for dice
@@ -52,14 +53,18 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     
     scores[activePlayer] += roundScore;
     document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
-    nextPlayer();
+    // nextPlayer();
 
     // if player own the game
     if (scores[activePlayer] >= 10){
-        document.querySelector('#name-' + activePlayer).textContent = 'WINNER';
-    } else {
+        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         document.querySelector('.player-0-panel').classList.remove('active');
         document.querySelector('.player-1-panel').classList.remove('active');
+        document.querySelector('.dice').style.display = 'none';
+        document.querySelector('.btn-hold').style.display='none';
+        document.querySelector('.btn-roll').style.display = 'none';
+    } else {
+       nextPlayer();
     }
 })
 
@@ -73,6 +78,22 @@ function nextPlayer () {
     document.querySelector('.player-1-panel').classList.toggle('active');
     document.querySelector('.dice').style.display = 'none';
 }
+
+function newGame() {
+    document.querySelector('.dice').style.display = 'none';
+
+    // making all scores 0
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.querySelector('.btn-hold').style.display = 'block';
+    document.querySelector('.btn-roll').style.display = 'block';
+
+}
+document.querySelector('.btn-new').addEventListener('click', function() {
+    newGame()
+})
 
 // var scores, roundScore, activePlayer;
 
