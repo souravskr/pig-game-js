@@ -9,20 +9,11 @@ GAME RULES:
 
 */
 
-
 var scores, roundScore, activePlayer;
 
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
-newGame();
-// document.querySelector('.dice').style.display = 'none';
 
-// // making all scores 0
-// document.getElementById('score-0').textContent = '0';
-// document.getElementById('score-1').textContent = '0';
-// document.getElementById('current-0').textContent = '0';
-// document.getElementById('current-1').textContent = '0';
+init();
+
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
     // Random Number for dice
@@ -38,39 +29,44 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     if (dice !== 1) {
         // add the score to current score
         roundScore += dice;
-        document.getElementById('current-' + activePlayer).textContent = roundScore;
+        document.getElementById(
+            'current-' + activePlayer
+        ).textContent = roundScore;
     } else {
-       nextPlayer();
+        nextPlayer();
     }
-    
-})
+});
 
-// Hold button 
-console.log(activePlayer)
+// Hold button
+console.log(activePlayer);
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
     // Add current score to global score
-    
+
     scores[activePlayer] += roundScore;
-    document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
+    document.getElementById('score-' + activePlayer).textContent =
+        scores[activePlayer];
     // nextPlayer();
 
     // if player own the game
-    if (scores[activePlayer] >= 10){
+    if (scores[activePlayer] >= 10) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         document.querySelector('.player-0-panel').classList.remove('active');
         document.querySelector('.player-1-panel').classList.remove('active');
+        document
+            .querySelector('.player-' + activePlayer + '-panel')
+            .classList.add('winner');
         document.querySelector('.dice').style.display = 'none';
-        document.querySelector('.btn-hold').style.display='none';
+        document.querySelector('.btn-hold').style.display = 'none';
         document.querySelector('.btn-roll').style.display = 'none';
     } else {
-       nextPlayer();
+        nextPlayer();
     }
-})
+});
 
-function nextPlayer () {
+function nextPlayer() {
     // Proceed to nex player
-    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
     roundScore = 0;
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
@@ -79,7 +75,12 @@ function nextPlayer () {
     document.querySelector('.dice').style.display = 'none';
 }
 
-function newGame() {
+document.querySelector('.btn-new').addEventListener('click', init);
+
+function init() {
+    scores = [0, 0];
+    roundScore = 0;
+    activePlayer = 0;
     document.querySelector('.dice').style.display = 'none';
 
     // making all scores 0
@@ -89,11 +90,13 @@ function newGame() {
     document.getElementById('current-1').textContent = '0';
     document.querySelector('.btn-hold').style.display = 'block';
     document.querySelector('.btn-roll').style.display = 'block';
+    document.getElementById('name-0').textContent = 'PLAYER 1';
+    document.getElementById('name-1').textContent = 'PLAYER 2';
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.add('active');
 
 }
-document.querySelector('.btn-new').addEventListener('click', function() {
-    newGame()
-})
 
 // var scores, roundScore, activePlayer;
 
@@ -122,7 +125,6 @@ document.querySelector('.btn-new').addEventListener('click', function() {
 //     diceDom.src = 'dice-' + dice + '.png';
 //     document.querySelector('.dice').style.display = 'block';
 
-
 //     // If dice rolled to 1, current score will be 0;
 //     if (dice !==1) {
 //         // if dice is not 1, then add the score
@@ -147,5 +149,3 @@ document.querySelector('.btn-new').addEventListener('click', function() {
 //     // Current Score to the global score
 
 // })
-
-
